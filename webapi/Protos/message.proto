@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "webapi";
+
+package message;
+
+service MessageService {
+  rpc CreateMessage (CreateMessageRequest) returns (MessageResponse); 
+  rpc GetAllMessages (GetAllMessagesRequest) returns (MessagesResponse);
+}
+
+message CreateMessageRequest {
+  string description = 1;
+}
+
+message GetAllMessagesRequest { }
+
+message MessageResponse {
+  string id = 1;
+  string description = 2;
+}
+
+message MessagesResponse {
+  repeated MessageResponse items = 1;
+}
