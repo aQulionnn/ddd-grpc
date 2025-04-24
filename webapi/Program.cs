@@ -6,12 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("Database"));
 
-// Add services to the container.
 builder.Services.AddGrpc();
+builder.Services.AddGrpcReflection();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapGrpcReflectionService();
+}
+
 app.MapGrpcService<MessageService>();
 
 app.Run();
