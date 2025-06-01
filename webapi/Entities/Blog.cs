@@ -33,7 +33,7 @@ public sealed class Blog : Entity
         if (string.IsNullOrWhiteSpace(content))
             throw new ValidationException("Post content is required.");
         
-        var post = new Post(postId, this, Title.Create(title), content);
+        var post = new Post(postId, this, Title.Create(title), Content.Create(content));
         _posts.Add(post);
         return post;
     }

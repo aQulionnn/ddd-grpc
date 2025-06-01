@@ -5,7 +5,7 @@ namespace webapi.Entities;
 
 public sealed class Post : Entity 
 {
-    internal Post(Guid id, Blog blog, Title title, string content) 
+    internal Post(Guid id, Blog blog, Title title, Content content) 
         : base(id)
     {
         Blog = blog;
@@ -16,6 +16,6 @@ public sealed class Post : Entity
     
     public Blog Blog { get; private set; }
     public Title Title { get; private set; }
-    public string Content { get; private set; }
+    public Content Content { get; private set; }
     public DateTime PublishedAt { get; private set; }
 }
