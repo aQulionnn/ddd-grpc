@@ -1,10 +1,11 @@
 using webapi.Primitives;
+using webapi.ValueObjects;
 
 namespace webapi.Entities;
 
 public sealed class Post : Entity 
 {
-    internal Post(Guid id, Blog blog, string title, string content) 
+    internal Post(Guid id, Blog blog, Title title, string content) 
         : base(id)
     {
         Blog = blog;
@@ -14,7 +15,7 @@ public sealed class Post : Entity
     }
     
     public Blog Blog { get; private set; }
-    public string Title { get; private set; }
+    public Title Title { get; private set; }
     public string Content { get; private set; }
     public DateTime PublishedAt { get; private set; }
 }

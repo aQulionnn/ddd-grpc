@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using webapi.Primitives;
+using webapi.ValueObjects;
 
 namespace webapi.Entities;
 
@@ -21,7 +22,7 @@ public sealed class Blog : Entity
         if (string.IsNullOrWhiteSpace(name))
             throw new ValidationException("Blog name is required.");
         
-        return new Blog(id, name);;
+        return new Blog(id, name);
     }
 
     public Post AddPost(Guid postId, string title, string content)
@@ -32,7 +33,7 @@ public sealed class Blog : Entity
         if (string.IsNullOrWhiteSpace(content))
             throw new ValidationException("Post content is required.");
         
-        var post = new Post(postId, this, title, content);
+        var post = new Post(postId, this, Title.Create(title), content);
         _posts.Add(post);
         return post;
     }
