@@ -4,7 +4,7 @@ using webapi.ValueObjects;
 
 namespace webapi.Entities;
 
-public sealed class Blog : Entity
+public sealed class Blog : AggregateRoot
 {
     private readonly List<Post> _posts = new(); 
     
