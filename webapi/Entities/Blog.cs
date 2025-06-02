@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using webapi.DomainEvents;
 using webapi.Primitives;
 using webapi.ValueObjects;
 
@@ -21,8 +22,11 @@ public sealed class Blog : AggregateRoot
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ValidationException("Blog name is required.");
+
+        var blog = new Blog(id, name);
+        blog.RaiseDomainEvent(new BlogCreatedDomainEvent(id, name));
         
-        return new Blog(id, name);
+        return blog;
     }
 
     public Post AddPost(Guid postId, string title, string content)
