@@ -11,7 +11,7 @@ public sealed class Post : Entity
         Blog = blog;
         Title = title;
         Content = content;
-        PublishedAt = DateTime.UtcNow;
+        PublishedAt = DateTime.Now;
     }
     
     public Blog Blog { get; private set; }
