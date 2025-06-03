@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
+using webapi.Exceptions;
 using webapi.Primitives;
 
 namespace webapi.BackgroundJobs;
@@ -23,16 +24,24 @@ public class ProcessOutboxMessagesJob(AppDbContext dbContext, IPublisher publish
 
         foreach (var outboxMessage in messages)
         {
-            var domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(outboxMessage.Content);
-
-            if (domainEvent is null)
-            {
-                _logger.LogError($"{outboxMessage.Id} Domain event is null");
-                continue;
-            }
+            IDomainEvent? domainEvent = null;
             
-            await _publisher.Publish(domainEvent, context.CancellationToken);
-            outboxMessage.ProcessedOn = DateTime.Now;
+            try
+            {
+                domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(outboxMessage.Content);
+
+                if (domainEvent is null)
+                    throw new DomainEventDeserializationException("Could not deserialize domain event");
+
+                await _publisher.Publish(domainEvent, context.CancellationToken);
+                outboxMessage.ProcessedOn = DateTime.Now;
+                outboxMessage.Error = null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Failed to process OutboxMessage {outboxMessage.Id}");
+                outboxMessage.Error = ex.Message;
+            }
         }
         
         await _dbContext.SaveChangesAsync();
