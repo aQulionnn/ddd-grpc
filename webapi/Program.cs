@@ -5,9 +5,12 @@ using Quartz;
 using webapi;
 using webapi.BackgroundJobs;
 using webapi.Interceptors;
+using webapi.Middlewares;
 using MessageService = webapi.Services.MessageService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 builder.Services.AddQuartz(configure =>
 {
@@ -46,6 +49,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapGrpcReflectionService();
 }
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapGrpcService<MessageService>();
 
