@@ -1,9 +1,12 @@
 using System.Reflection;
+using FluentValidation;
 using Grpc.Core.Interceptors;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using webapi;
 using webapi.BackgroundJobs;
+using webapi.Behaviors;
 using webapi.Interceptors;
 using webapi.Middlewares;
 using MessageService = webapi.Services.MessageService;
@@ -26,6 +29,9 @@ builder.Services.AddQuartz(configure =>
 });
 
 builder.Services.AddQuartzHostedService();
+
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 
 builder.Services.AddMediatR(configuration =>
 {
