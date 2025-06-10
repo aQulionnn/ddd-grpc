@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Polly;
 using Quartz;
 using webapi.Exceptions;
 using webapi.Primitives;
@@ -32,15 +33,21 @@ public class ProcessOutboxMessagesJob(AppDbContext dbContext, IPublisher publish
 
                 if (domainEvent is null)
                     throw new DomainEventDeserializationException("Could not deserialize domain event");
+                
+                var policy = Policy
+                    .Handle<Exception>()
+                    .RetryAsync(3);
 
-                await _publisher.Publish(domainEvent, context.CancellationToken);
+                await policy.ExecuteAndCaptureAsync(() => 
+                    _publisher.Publish(domainEvent, context.CancellationToken));
+                
                 outboxMessage.ProcessedOn = DateTime.Now;
                 outboxMessage.Error = null;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Failed to process OutboxMessage {outboxMessage.Id}");
-                outboxMessage.Error = ex.Message;
+                outboxMessage.Error = ex.Message; 
             }
         }
         
