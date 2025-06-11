@@ -2,11 +2,14 @@ syntax = "proto3";
 
 option csharp_namespace = "webapi";
 
+import "google/protobuf/timestamp.proto";
+
 package message;
 
 service MessageService {
   rpc CreateMessage (CreateMessageRequest) returns (MessageResponse); 
   rpc GetAllMessages (GetAllMessagesRequest) returns (MessagesResponse);
+  rpc GetAllMessagesStream(GetAllMessagesRequest) returns (stream MessagesResponse); 
 }
 
 message CreateMessageRequest {
@@ -22,4 +25,5 @@ message MessageResponse {
 
 message MessagesResponse {
   repeated MessageResponse items = 1;
+  google.protobuf.Timestamp timestamp = 3;
 }
