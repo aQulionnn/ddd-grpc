@@ -104,4 +104,37 @@ public class MessageService(AppDbContext context, ILogger<MessageService> logger
             await Task.Delay(1000);
         }
     }
+
+    public override async Task SendMessage(IAsyncStreamReader<ClientToServerRequest> requestStream, 
+        IServerStreamWriter<ServerToClientResponse> responseStream, ServerCallContext context)
+    {
+        var clientToServerTask = ClientToServerPingHandlingAsync(requestStream, context);
+        var serverToClientTask = ServerToClientPingAsync(responseStream, context);
+        
+        await Task.WhenAll(clientToServerTask, serverToClientTask);
+    }
+
+    private static async Task ServerToClientPingAsync(IServerStreamWriter<ServerToClientResponse> responseStream, ServerCallContext context)
+    {
+        var pingCount = 0;
+        while (!context.CancellationToken.IsCancellationRequested)
+        {
+            await responseStream.WriteAsync(new ServerToClientResponse
+            {
+                Description = $"Server responded {++pingCount} times",
+                Timestamp = Timestamp.FromDateTime(DateTime.UtcNow)
+            });
+            
+            await Task.Delay(1000);
+        }
+    }
+
+    private async Task ClientToServerPingHandlingAsync(IAsyncStreamReader<ClientToServerRequest> requestStream, ServerCallContext context)
+    {
+        while (await requestStream.MoveNext() && !context.CancellationToken.IsCancellationRequested)
+        {
+            var message = requestStream.Current;
+            _logger.LogInformation($"The client send {message.Description}");
+        }
+    }
 }

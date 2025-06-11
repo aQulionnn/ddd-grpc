@@ -10,7 +10,17 @@ service MessageService {
   rpc CreateMessage (CreateMessageRequest) returns (MessageResponse); 
   rpc CreateMessageStream (stream CreateMessageRequest) returns (MessagesResponse);
   rpc GetAllMessages (GetAllMessagesRequest) returns (MessagesResponse);
-  rpc GetAllMessagesStream(GetAllMessagesRequest) returns (stream MessagesResponse); 
+  rpc GetAllMessagesStream (GetAllMessagesRequest) returns (stream MessagesResponse); 
+  rpc SendMessage (stream ClientToServerRequest) returns (stream ServerToClientResponse);
+}
+
+message ClientToServerRequest {
+  string description = 1;
+}
+
+message ServerToClientResponse {
+  string description = 1;
+  google.protobuf.Timestamp timestamp = 2;
 }
 
 message CreateMessageRequest {
