@@ -8,6 +8,7 @@ package message;
 
 service MessageService {
   rpc CreateMessage (CreateMessageRequest) returns (MessageResponse); 
+  rpc CreateMessageStream (stream CreateMessageRequest) returns (MessagesResponse);
   rpc GetAllMessages (GetAllMessagesRequest) returns (MessagesResponse);
   rpc GetAllMessagesStream(GetAllMessagesRequest) returns (stream MessagesResponse); 
 }

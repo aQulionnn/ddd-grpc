@@ -29,6 +29,37 @@ public class MessageService(AppDbContext context, ILogger<MessageService> logger
         };
     }
 
+    public override async Task<MessagesResponse> CreateMessageStream(IAsyncStreamReader<CreateMessageRequest> requestStream, 
+        ServerCallContext context)
+    {
+        var response = new MessagesResponse
+        {
+            Items = { },
+            Timestamp = Timestamp.FromDateTime(DateTime.UtcNow)
+        };
+
+        await foreach (var request in requestStream.ReadAllAsync())
+        {
+            var message = new Message
+            {
+                Id = Guid.NewGuid(),
+                Description = request.Description
+            };
+            
+            await _context.Messages.AddAsync(message);
+            
+            response.Items.Add(new MessageResponse
+            {
+                Id = message.Id.ToString(),
+                Description = request.Description,
+            });
+        }
+        
+        await _context.SaveChangesAsync();
+        
+        return response;
+    }
+
     public override async Task<MessagesResponse> GetAllMessages(GetAllMessagesRequest request,
         ServerCallContext context)
     {
