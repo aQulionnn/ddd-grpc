@@ -3,6 +3,7 @@ syntax = "proto3";
 option csharp_namespace = "webapi";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 package message;
 
@@ -12,6 +13,7 @@ service MessageService {
   rpc GetAllMessages (GetAllMessagesRequest) returns (MessagesResponse);
   rpc GetAllMessagesStream (GetAllMessagesRequest) returns (stream MessagesResponse); 
   rpc SendMessage (stream ClientToServerRequest) returns (stream ServerToClientResponse);
+  rpc PrintMessage (stream CreateMessageRequest) returns (google.protobuf.Empty);
 }
 
 message ClientToServerRequest {

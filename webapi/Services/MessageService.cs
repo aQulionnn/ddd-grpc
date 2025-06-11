@@ -105,6 +105,16 @@ public class MessageService(AppDbContext context, ILogger<MessageService> logger
         }
     }
 
+    public override async Task<Empty> PrintMessage(IAsyncStreamReader<CreateMessageRequest> requestStream, ServerCallContext context)
+    {
+        await foreach (var request in requestStream.ReadAllAsync())
+        {
+            _logger.LogInformation($"Client created message: {request.Description}");
+        }
+        
+        return new();
+    }
+
     public override async Task SendMessage(IAsyncStreamReader<ClientToServerRequest> requestStream, 
         IServerStreamWriter<ServerToClientResponse> responseStream, ServerCallContext context)
     {
