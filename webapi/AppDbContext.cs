@@ -8,4 +8,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options): DbContext(opt
 {
     public DbSet<Message> Messages => Set<Message>();
     public DbSet<OutboxMessage>  OutboxMessages => Set<OutboxMessage>();
+    public DbSet<Blog> Blogs => Set<Blog>();
+    public DbSet<Post> Posts => Set<Post>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Post>(p =>
+        {
+            p.ComplexProperty(x => x.Title);
+            p.ComplexProperty(x => x.Content);
+        });
+    }
 }
