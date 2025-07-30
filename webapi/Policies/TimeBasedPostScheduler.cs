@@ -8,8 +8,8 @@ public class TimeBasedPostScheduler(TimeSpan delay)
 {
     private readonly TimeSpan _delay = delay;
     
-    public void Schedule(Post post)
+    public void Schedule(PostEntity postEntity)
     {
-        post.SetPublishDate(DateTime.UtcNow.Add(_delay));
+        postEntity.SetPublishDate(DateTime.UtcNow.Add(_delay));
     }
 }

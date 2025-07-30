@@ -4,5 +4,5 @@ namespace webapi.Abstractions.Policies;
 
 public interface IPostSchedulerPolicy
 {
-    void Schedule(Post post);
+    void Schedule(PostEntity postEntity);
 }

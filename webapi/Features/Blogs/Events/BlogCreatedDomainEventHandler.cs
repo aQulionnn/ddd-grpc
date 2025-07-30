@@ -10,7 +10,7 @@ internal sealed class BlogCreatedDomainEventHandler(ILogger<BlogCreatedDomainEve
 
     public Task Handle(BlogCreatedDomainEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"{notification.Name} blog created.");
+        _logger.LogInformation($"{notification.Name} blogEntity created.");
         return Task.CompletedTask;;
     }
 }
