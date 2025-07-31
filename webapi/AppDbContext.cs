@@ -1,7 +1,6 @@
+using Domain.Entities;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using webapi.Entities;
-using webapi.Models;
-using webapi.Outbox;
 
 namespace webapi;
 

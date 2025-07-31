@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Polly;
 using Quartz;
-using webapi.Exceptions;
-using webapi.Primitives;
+using SharedKernel.Exceptions;
+using SharedKernel.Primitives;
 
 namespace webapi.BackgroundJobs;
 

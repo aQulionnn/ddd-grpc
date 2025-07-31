@@ -1,6 +1,6 @@
 using FluentValidation;
 using MediatR;
-using webapi.Shared;
+using SharedKernel.Shared;
 
 namespace webapi.Behaviors;
 

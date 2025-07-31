@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi", "webapi\webapi.csproj", "{0476665E-6E35-452A-AA81-92CE479156CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{BF43EFC5-FD51-43DE-8721-744E1473791A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{86D10483-F0CF-45F1-A53B-FD2AED825105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{0476665E-6E35-452A-AA81-92CE479156CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0476665E-6E35-452A-AA81-92CE479156CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0476665E-6E35-452A-AA81-92CE479156CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF43EFC5-FD51-43DE-8721-744E1473791A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF43EFC5-FD51-43DE-8721-744E1473791A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF43EFC5-FD51-43DE-8721-744E1473791A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF43EFC5-FD51-43DE-8721-744E1473791A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D10483-F0CF-45F1-A53B-FD2AED825105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D10483-F0CF-45F1-A53B-FD2AED825105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D10483-F0CF-45F1-A53B-FD2AED825105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D10483-F0CF-45F1-A53B-FD2AED825105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
