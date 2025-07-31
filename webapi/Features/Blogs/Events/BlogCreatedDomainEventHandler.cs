@@ -1,16 +1,17 @@
+using Domain.DomainEvents;
 using MediatR;
-using webapi.DomainEvents;
+using webapi.Abstractions.Messaging;
 
 namespace webapi.Features.Blogs.Events;
 
 internal sealed class BlogCreatedDomainEventHandler(ILogger<BlogCreatedDomainEventHandler> logger)
-    : INotificationHandler<BlogCreatedDomainEvent>
+    : INotificationHandler<DomainEventAdapter<BlogCreatedDomainEvent>>
 {
     private readonly ILogger<BlogCreatedDomainEventHandler> _logger = logger;
 
-    public Task Handle(BlogCreatedDomainEvent notification, CancellationToken cancellationToken)
+    public Task Handle(DomainEventAdapter<BlogCreatedDomainEvent> notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"{notification.Name} blogEntity created.");
+        _logger.LogInformation($"{notification.DomainEvent.Name} blogEntity created.");
         return Task.CompletedTask;;
     }
 }

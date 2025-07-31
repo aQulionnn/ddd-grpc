@@ -1,5 +1,5 @@
-using webapi.Abstractions.Policies;
-using webapi.Entities;
+using Domain.Entities;
+using Domain.Policies;
 
 namespace webapi.Policies;
 

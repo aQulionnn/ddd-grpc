@@ -1,7 +1,7 @@
+using Domain.Entities;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
-using webapi.Entities;
 
 namespace webapi.Services;
 

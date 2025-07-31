@@ -1,8 +1,8 @@
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
-using webapi.Outbox;
-using webapi.Primitives;
+using SharedKernel.Primitives;
 
 namespace webapi.Interceptors;
 
