@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="Protos\message.proto" GrpcServices="Server" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="FluentValidation" Version="12.0.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
         <PackageReference Include="Google.Protobuf" Version="3.30.2" />
@@ -31,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
