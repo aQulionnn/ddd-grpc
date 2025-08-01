@@ -2,11 +2,12 @@ using Domain.Entities;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using Contracts.Protos;
 
 namespace webapi.Services;
 
 public class MessageService(AppDbContext context, ILogger<MessageService> logger)
-    : webapi.MessageService.MessageServiceBase
+    : Contracts.Protos.MessageService.MessageServiceBase
 {
     private readonly AppDbContext _context = context;
     private readonly ILogger<MessageService> _logger = logger;

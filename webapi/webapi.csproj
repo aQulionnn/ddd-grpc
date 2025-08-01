@@ -25,10 +25,12 @@
         <PackageReference Include="Quartz" Version="3.14.0" />
         <PackageReference Include="Quartz.Extensions.Hosting" Version="3.14.0" />
     </ItemGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Protobuf Include="..\Contracts\Protos\message.proto" GrpcServices="Server" />
     </ItemGroup>
 
 </Project>
