@@ -9,9 +9,12 @@ using webapi.BackgroundJobs;
 using webapi.Behaviors;
 using webapi.Interceptors;
 using webapi.Middlewares;
+using webapi.Repositories;
 using MessageService = webapi.Services.MessageService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<PostRepository>();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
